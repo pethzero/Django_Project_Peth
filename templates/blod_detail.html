@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{blog.title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  </head>
+  <body>
+    <p></p>
+    <div class="container">
+      <h1>{{blog.title}}</h1>
+      <p> <strong>{{blog.date}}</strong> </p>
+      <p>{{blog.body}}</p>
+      <a href="{% url 'index' %}">Go back</a>
+    </div>
+
+
+  </body>
+</html>

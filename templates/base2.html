@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html lang="en" class="loading">
+  <!-- BEGIN : Head-->
+  <head>
+    <title>E Ticket</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="MIS Request">
+    <meta name="author" content="Forderson">
+    <link rel="shortcut icon" href="{% static 'img/logo_ticket.png' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900|Montserrat:300,400,500,600,700,800,900" rel="stylesheet"> -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/feather/style.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/simple-line-icons/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/perfect-scrollbar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/prism.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/tables/datatable/datatables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+    
+    {% block extra_css%}
+    {% endblock%}
+
+    {% block css%}
+    {% endblock%}
+  </head>
+    <body data-col="2-columns" class=" 2-columns ">
+      <div class="wrapper nav-collapsed menu-collapsed">
+
+        <!-- <div data-active-color="white" data-background-color="info" data-image="{% static 'img/sidebar-bg/06.jpg' %}" class="app-sidebar">
+          
+          <div class="sidebar-header">
+            <div class="logo clearfix"><a href="index" class="logo-text float-left">
+              <span class="text align-middle"><img src="{% static 'img/logo.png' %}"/></span></a>
+            </div>
+          </div>
+
+          <div class="sidebar-content ">
+            <div class="nav-container">
+              <ul id="main-menu-navigation" data-menu="menu-navigation" data-scroll-to-active="true" class="navigation navigation-main">
+                <li class=" nav-item">
+                  <a href="index">
+                    <i class="ft-home"></i>
+                    <span data-i18n="" class="menu-title">Home</span>
+                  </a>
+                </li>
+
+                <li class=" nav-item">
+                  <a href="new_request">
+                    <i class="ft-edit"></i>
+                    <span data-i18n="" class="menu-title">New Request</span>
+                  </a>
+                </li>
+
+                <li class=" nav-item">
+                  <a href="request_list">
+                    <i class="ft-file-text"></i>
+                    <span data-i18n="" class="menu-title">Request List</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="sidebar-background">
+          </div>
+        </div> -->
+
+        <nav class="navbar navbar-expand-lg navbar-light header-navbar toggle fixed-top gradient-back-to-earth">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <span class="d-lg-none navbar-right navbar-collapse-toggle">
+                <a aria-controls="navbarSupportedContent" href="javascript:;" class="open-navbar-container black">
+                  <i class="ft-more-vertical"></i>
+                </a>
+              </span>
+            
+            </div>
+            <div class="navbar-container">
+              <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                  <li class="dropdown nav-item">
+                    <a id="dropdownBasic3" href="#" data-toggle="dropdown" class="nav-link position-relative dropdown-toggle">
+                      <i class="ft-user font-medium-3 blue-grey darken-4"></i>
+                      <b>{{user.first_name|title }} {{user.last_name|title }}</b>  
+                    </a>
+                    <div ngbdropdownmenu="" aria-labelledby="dropdownBasic3" class="dropdown-menu text-left dropdown-menu-right">
+                      <a href="/logout" class="dropdown-item">
+                        <i class="ft-power mr-2"></i>
+                        <span>Logout</span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div class="main-panel">
+          <div class="main-content">
+            <div class="content-wrapper" style="margin-top: 70px">
+
+              {% block content%}
+              {% endblock%}
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+  
+
+    {% block extra_js%}
+   
+    {% endblock%}
+
+    {% block js%}
+    {% endblock%}
+  </body>
+  <!-- END : Body-->
+</html>

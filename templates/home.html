@@ -1,0 +1,54 @@
+{% extends 'base1.html' %}
+
+{% load staticfiles %}
+
+{% block extra_css%}
+
+{% endblock%}
+
+{% block css%}
+<style>
+  .card-text{
+    font-size:13px;
+    color: gray
+  }
+</style>
+{% endblock%}
+
+{% block content%}
+
+
+  <section id="horizontal-examples">
+    <div class="row">
+      <div class="col-6 mt-3 mb-1">
+        <div class="content-header">WelCome</div>
+        <p class="content-sub-header">Select the department you want.</p>
+      </div>
+      <div class="col-6 mt-3 mb-1" align='right'>
+          <div  class="content-header">
+            <select name="country" class="form-control" style="width: 20%" id="country">
+              <option value="thai">Thailand</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+              <img class="card-img-top" src="{% static 'picture/shema.jpg' %}"
+                  style="display: block;" data-holder-rendered="true">
+              <div class="card-body">
+                  <h4 class="card-title">ดูข้อมูลคน</h4>
+              </div>
+              <div class="card-footer">
+                  <a href="persondata.html" class="btn btn-primary">CLICK LINK</a>
+              </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    
+  
+  </section>
+{% endblock%}
