@@ -1,5 +1,5 @@
-from django.http import HttpResponse, HttpResponseNotFound, \
-												HttpResponseRedirect
+from django.http import HttpResponse,JsonResponse, HttpResponseNotFound, \
+                                                HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db import  transaction
 from django.db.models import Q
@@ -20,10 +20,7 @@ import csv
 import pandas as pd
 import simplejson
 import sys
-# from datetime import datetime
-# from django.template import Context
-# from django.template.loader import get_template
-# from django.core.mail import EmailMultiAlternatives
+
 from django.core.cache import cache
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
@@ -38,39 +35,35 @@ from datetime import timedelta
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
 from .serializers import *
 # from pyrfc import Connection
 from django.http import HttpResponse, Http404
 
-# import json
-# from django.shortcuts import render, redirect
-# from django.http import HttpResponse, JsonResponse
-# from django.conf import settings
-# from django.core.files.storage import FileSystemStorage
-# from rest_framework import viewsets
-# from rest_framework.viewsets import ModelViewSet
+def home(request):
+    try:
+        username = request.session['username']
+        user = UserID.objects.get(userid=username)
+        documents = Document.objects.all()
 
-# from .serializers import*
-# from .models import *
-# from .forms import *
+    except Exception as e:
+        return HttpResponseRedirect('/login')    
+    param = {
+        'user' : user,
+        'documents': documents
+    }
+    return render(request, 'home.html',param)
+
 
 def blog_list(request):
     data = Blog.objects.all()
     return render(request, 'blog_list.html',{'m':data})
 
-def index(request):
-    data = Blog.objects.all()
-    return render(request, 'index.html',{'m':data})
 
 def blog_detail(request, **kwargs):
     pk = kwargs['pk']
     blog = Blog.objects.get(pk=pk)
     return render(request, 'blog_detail.html', {'blog': blog})
-
-
-def home(request):
-    documents = Document.objects.all()
-    return render(request, 'home.html', {'documents': documents})
 
 
 def simple_upload(request):
@@ -104,13 +97,13 @@ def model_form_upload(request):
 def profile(request):
     return render(request, 'profile.html')
 
-def loginv1(request):
-    return render(request, 'loginv1.html')
-
 # API 
+def test_api(request):
+    data = Blog.objects.all()
+    return render(request, 'test_api.html',{'m':data})
 
 def apitest(request):
-    json_object = {'key': "value"}
+    json_object = {'key': "api_test"}
     return JsonResponse(json_object)
 
 
@@ -127,74 +120,63 @@ class BlogViewSet(ModelViewSet):
 
 
 def check_login(request):
-    print("WOW")
-	# if request.method == "POST":
-	# 	username = request.POST.get("username", "")
-	# 	password = request.POST.get("password", "")
-    #     print(username)
-    #     print(password)
-    # else:
-    #     print('fail')        
-		# user = Tblusers.objects.using("user").filter(userid=username)
-		# if user.count() > 0 :
-		# 	pwd_encrypt = hashlib.md5( password.encode('utf-8') ).hexdigest()
-		# 	# if user[0].password == pwd_encrypt:
-		# 	if True:
-		# 		# user_kpi = Employee.objects.filter(userid=username)
-		# 		request.session['error'] = ""
-		# 		request.session['username'] = username
-		# 		if user_kpi.count() > 0:
-		# 			emp = Employee.objects.get(userid=username)
-		# 		else:
-		# 			emp = Employee.objects.create(userid=username)
-					
-		# 		user = Tblusers.objects.using("user").get(userid=username)
-		# 		department = user.department.split(' ',1)
-		# 		cost = department[0]
-		# 		dep = department[1] if len(department) > 1 else department[0]
-		# 		user_dept = Department.objects.filter(department=dep)
-		# 		if user_dept.count() > 0:
-		# 			dep = Department.objects.get(department=dep)
-		# 			print('get')
-		# 		else:
-		# 			dep = Department.objects.create(department=dep)
-		# 			dep.directer = '13317'
-		# 			dep.country = 'Thailand'
-		# 			print('create')
-		# 		dep.costcenter = cost
-		# 		dep.save()
-		# 		emp.department = dep
-		# 		emp.prefix = user.prefixe
-		# 		emp.first_name = user.firstnamee
-		# 		emp.last_name = user.lastnamee
-		# 		emp.logindate = datetime.datetime.now()
-		# 		emp.email = user.email
+    username = request.POST.get('username',"")
+    password = request.POST.get('password',"")
+    try:
+     
+        user_person = UserID.objects.filter(userid=username)
+        print("get user_person:",user_person)
 
-		# 		emp.save()
-		# 		# dep = Department.objects.get(department=dep)
-		# 		return HttpResponseRedirect('/')
-		# 	else:
-		# 		error = "Password is Wrong!!!"
-		# 		request.session['error'] = error
-		# 		request.session[''] = error
-		# 		messages.error(request, error)
-		# 		return HttpResponseRedirect('/login')
-		# else:
-		# 	error = "Your account is Wrong!!!"
-		# 	request.session['error'] = error
-		# 	request.session[''] = error
-		# 	messages.error(request, error)
-		# 	return HttpResponseRedirect('/login')
+        if user_person.exists():
+                # if user[0].password == pwd_encrypt:
+                if user_person[0].password == password:
+                    user_person = UserID.objects.get(userid=username)
+                    user_person.lastlogin = arrow.now().format('YYYY-MM-DD HH:mm:ss')
+                    user_person.save()
+                else:
+                    error = "Your password is invalid !"
+                    messages.error(request, error)
+                    print(error)
+                    return HttpResponseRedirect('/login/') 
+        else:
+            error = "Your username is invalid !"
+            messages.error(request, error)
+            print(error)
+            return HttpResponseRedirect('/login/') 
+
+        request.session['username'] = username 
+        return HttpResponseRedirect('/')    
+
+    except Exception as e:
+        # print(e)
+        print("{0} : {1}".format(sys.exc_info()[-1].tb_lineno,str(e)))
+        error = "Your account is invalid !"
+        print(error)
+        messages.error(request, error)
+        return HttpResponseRedirect('/login/')
+          
+
+    data = {
+        'user' : username,
+        'passowrd': password
+    }
+    return HttpResponse(simplejson.dumps(data,default=str), {'ContentType':'application/json'} )
+        
+# def loginv1(request):
+#     return render(request, 'loginv1.html')
+    
 
 def login(request):
 	try:
-		# request.session['username'] = '45446'
-		username = request.session['username']
-        # print("WOW")
-		return HttpResponseRedirect('/')
+		username = request.session['username'] 
+		return HttpResponseRedirect('/') 
 	except Exception as e:
-		return render(request, 'login_page.html')
+		print(e)
+	return render(request, 'login.html') 
 
 def logout(request):
-	del request.session['username']
-	return HttpResponseRedirect('/login')
+	try:
+		del request.session['username']
+	except Exception as e:
+		print(e)
+	return HttpResponseRedirect('/login/') 

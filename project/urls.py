@@ -33,19 +33,17 @@ urlpatterns = [
     url(r'^login/', login, name='login'),
     url(r'^logout/',logout, name='logout'),
     url(r'^check_login/', check_login, name='check_login'),
-    url(r'^loginv1/',loginv1, name='loginv1'),
 
-     url(r'^loginv1/',loginv1, name='loginv1'),
     # url(r'^home/', home, name='home'),
-    # url(r'^simple_upload/', simple_upload, name='simple_upload'),
-    # url(r'^model_form_upload/', model_form_upload, name='model_form_upload'),
+    url(r'^simple_upload/', simple_upload, name='simple_upload'),
+    url(r'^model_form_upload/', model_form_upload, name='model_form_upload'),
     url(r'^blog/(?P<pk>\d+)$', blog_detail, name='blog'),
     url(r'^profile/', profile, name='profile'),
+     url(r'^test_api/', test_api, name='test_api'),
     # #API
-    # url(r'^api', include(router.urls)),
-    # url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework')),
-
-    # url(r'^apitest', apitest, name='apitest'),
+    url(r'^api', include(router.urls)),
+    url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^apitest', apitest, name='apitest'),
     
 ]
 

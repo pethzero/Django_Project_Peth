@@ -30,9 +30,9 @@
               <option value="thai">Thailand</option>
             </select>
           </div>
-        </div>
+      </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-4">
           <div class="card mb-4 box-shadow">
@@ -47,8 +47,48 @@
           </div>
       </div>
     </div>
-    </div>
     
-  
+    <div class="row">
+      <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+              <img class="card-img-top" src="{% static 'picture/shema.jpg' %}"
+                  style="display: block;" data-holder-rendered="true">
+              <div class="card-body">
+                  <h4 class="card-title">ดูข้อมูลคน</h4>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'simple_upload' %}">Simple Upload</a>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+            <img class="card-img-top" src="{% static 'picture/shema.jpg' %}"
+                style="display: block;" data-holder-rendered="true">
+            <div class="card-body">
+                <h4 class="card-title">ดูข้อมูลคน</h4>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'model_form_upload' %}">Mutiple Upload</a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    
+    
   </section>
+
+  <p>Uploaded files:</p>
+  <ul>
+    {% for obj in documents %}
+      <li>
+        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+        <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+      </li>
+    {% endfor %}
+  </ul>
+
+
 {% endblock%}

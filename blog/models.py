@@ -32,11 +32,13 @@ class Document(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
     
 
-class Iduser(models.Model):
-    iduser = models.CharField(max_length=255, blank=True)
+class UserID(models.Model):
+    userid = models.CharField(max_length=50, blank=True)
+    password = models.CharField(max_length=50, blank=True, null=True) 
     fristname = models.CharField(max_length=255, blank=True)
     lastname = models.CharField(max_length=255, blank=True)
-    profile = models.FileField(upload_to='documents/')
+    lastlogin = models.CharField(max_length=25, blank=True, null=True)
+    profile = models.FileField(upload_to='documents/',default='', blank=True, null=True)
 
 
 class Rapper(models.Model):
