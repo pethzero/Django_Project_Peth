@@ -24,13 +24,14 @@ class Company_Category(models.Model):
 
 
 class Document(models.Model):
-    IDXXXX = models.CharField(max_length=255, blank=True)
+    docid = models.CharField(max_length=255, blank=True)
     Martril = models.CharField(max_length=255, blank=True)
-    RX = models.CharField(max_length=255, blank=True)
+    docdata = models.CharField(max_length=255, blank=True)
     description = models.CharField(max_length=255, blank=True)
     document = models.FileField(upload_to='documents/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    
+    def __str__(self):
+        return '%s' % (self.docid)  
 
 class UserID(models.Model):
     userid = models.CharField(max_length=50, blank=True)
@@ -39,14 +40,23 @@ class UserID(models.Model):
     lastname = models.CharField(max_length=255, blank=True)
     lastlogin = models.CharField(max_length=25, blank=True, null=True)
     profile = models.FileField(upload_to='documents/',default='', blank=True, null=True)
-
+    def __str__(self):
+        return '%s' % (self.userid)  
 
 class Rapper(models.Model):
     name = models.CharField(max_length=100)
     aka = models.CharField(max_length=60)
+    def __str__(self):
+        return self.aka
+
+class Personal_data(models.Model):
+    personalid = models.CharField(max_length=50, blank=True)
+    fristname = models.CharField(max_length=255, blank=True)
+    lastname = models.CharField(max_length=255, blank=True)
+    gender = models.CharField(max_length=25, blank=True)
+    def __str__(self):
+        return '%s' % (self.personalid)
 
 
-def __str__(self):
-    return self.aka
 
 

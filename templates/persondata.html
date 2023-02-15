@@ -1,0 +1,175 @@
+{% extends 'base1.html' %}
+{% load staticfiles %}
+{% block title %} WRO System {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'datatable/datatables.min.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/loader.css' %}"> -->
+<!-- <link rel="stylesheet" href="{% static 'css/buttons.dataTables.min.css' %}"> -->
+{% endblock %}
+
+{% block css %}
+<style>
+  .input-sm {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  ::-webkit-input-placeholder {
+    /* Edge */
+    color: red;
+  }
+
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: red;
+  }
+
+  ::placeholder {
+    color: red;
+  }
+
+  div.dt-buttons {
+    position: relative;
+    margin-left: 15px;
+    float: right;
+  }
+
+  th,td {
+    white-space: nowrap;
+  }
+
+  .top-buffer {
+    margin-top: 15px;
+  }
+
+  .buttom-buffer {
+    margin-bottom: 15px;
+  }
+  .fa-check{
+      color: #1bba28;
+    }
+    .fa-check:hover{
+      color: #1bba28;
+    }
+  
+    .fa-edit{
+      color: #df0202f8;
+    }
+    .fa-edit:hover{
+      color: #df0202f8;
+    }
+    .fa-book{
+      color: #df0202f8;
+    }
+    .fa-book:hover{
+      color: #df0202f8;
+    }
+    /* #color1{
+      color: #7072A5;
+    } */
+</style>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title top-buffer"><i class="fa fa-globe"></i> Person</h2>
+  </div>
+
+  <div class="card-body">
+    <button type="button" class="btn btn-primary bg-lighten-1">Home</button>
+    <table id="PersonTable" style="font-size: 10px;"  class="table table-striped table-bordered">
+        <thead>
+        <tr class="text-center">
+            <th class="text-center" >Person ID</th>
+            <th class="text-center" >Frist Name</th>
+            <th class="text-center" >Last Name</th>
+            <th class="text-center" >Gender</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block modal %}
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- <script type="text/javascript" src="{% static 'js/dataTables.buttons.min.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'js/buttons.flash.min.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'js/buttons.html5.min.js' %}"></script> -->
+<!-- <script type="text/javascript" src="{% static 'js/buttons.print.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'datatable/datatables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jszip.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/pdfmake.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/vfs_fonts.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/daterangepicker.min.js' %}"></script>
+{% endblock %}
+
+{% block js %}
+<script>
+
+
+var table = $('#PersonTable').DataTable({
+    "ajax":
+    {
+      'url': '/person_api',
+      "type": 'GET',
+      "data": function (result) {
+      }
+    },
+    "dataSrc": function (json) {
+      // console.log("What The", json.data)
+      return json.data
+    },
+    "columns": [
+      { 'className': 'text-center', "data": "Personal_id" },
+      { 'className': 'text-center', "data": "FristName" },
+      { 'className': 'text-center', "data": "LastName" },
+      { 'className': 'text-center', "data": "Gender" },
+    ],
+    'dom': 'Bfrtip',
+    // 'buttons': [{
+    //   extend: 'excel',
+    //   title: function () {
+    //     return "Sale&Tranfer"
+    //   },
+    //   filename: function () {
+    //     return "Sale&Tranfer"
+    //   },
+    //   action: function ( e, dt, node, config ) {
+    //         alert("DOWNLOAD")
+    //         $('.loading').css('display', 'block')
+    //     setTimeout( () => {
+    //         $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, node, config);
+    //        alert("SUCCESS")
+    //        $('.loading').css('display', 'none')
+    //     }, 50);
+    //      },
+    // }],
+        
+    "bLengthChange": true,
+    "bFilter": true,
+    "order": [[0, "desc" ]],
+    "bAutoWidth": false,
+    "pageLength": 10,
+    // "scrollX": true,
+    // "scrollY": true,
+    // "scrollY": "700px",
+    // "scrollCollapse": true,
+    // responsive: true,
+  });
+
+</script>
+{% endblock %}

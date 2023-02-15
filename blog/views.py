@@ -97,7 +97,23 @@ def model_form_upload(request):
 def profile(request):
     return render(request, 'profile.html')
 
-# API 
+#============================= DATA ========================================================
+def persondata(request):
+    person_data = Personal_data.objects.filter()
+    # data = {}
+    # temp = []
+    # for i in person_data:
+    #     temp.append({
+    #             'Personal_id':i.personalid,
+    #             'FristName':i.fristname,
+    #             'LastName':i.fristname,
+    #             'Gender':i.gender,
+    #             })
+    # print(temp)
+
+    return render(request, 'persondata.html')
+
+#=============================================== API ========================================
 def test_api(request):
     data = Blog.objects.all()
     return render(request, 'test_api.html',{'m':data})
@@ -116,6 +132,23 @@ class BlogViewSet(ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
+def person_api(request):
+    try:
+        data = {}
+        temp = []
+        person_data = Personal_data.objects.filter()
+        for i in person_data:
+            temp.append({
+                    'Personal_id':i.personalid,
+                    'FristName':i.fristname,
+                    'LastName':i.fristname,
+                    'Gender':i.gender,
+                    })
+
+    except Exception as e:
+        print(e)
+    data['data'] = temp
+    return HttpResponse(simplejson.dumps(data,default=str), {'ContentType':'application/json'} )
 
 
 
@@ -156,15 +189,8 @@ def check_login(request):
         return HttpResponseRedirect('/login/')
           
 
-    data = {
-        'user' : username,
-        'passowrd': password
-    }
-    return HttpResponse(simplejson.dumps(data,default=str), {'ContentType':'application/json'} )
+
         
-# def loginv1(request):
-#     return render(request, 'loginv1.html')
-    
 
 def login(request):
 	try:

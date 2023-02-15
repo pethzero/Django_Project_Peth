@@ -4,13 +4,13 @@
 <html lang="en" class="loading">
   <!-- BEGIN : Head-->
   <head>
-    <title>E Ticket</title> 
+    <title>Peth Project</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="">
     <meta name="author" content="Thawatchapong">
-    <link rel="shortcut icon" href="{% static 'img/logo_ticket.png' %}">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -55,7 +55,7 @@
                   <li class="dropdown nav-item">
                     <a id="dropdownBasic3" href="#" data-toggle="dropdown" class="nav-link position-relative dropdown-toggle">
                       <i class="ft-user font-medium-3 blue-grey darken-4"></i>
-                      <b>{{user.first_name|title }} {{user.last_name|title }}</b>  
+                      <b>{{user.fristname|title }}  {{user.lastname|title }}</b>  
                     </a>
                     <div ngbdropdownmenu="" aria-labelledby="dropdownBasic3" class="dropdown-menu text-left dropdown-menu-right">
                       <a href="/logout" class="dropdown-item">
@@ -84,10 +84,21 @@
 
 
 
-  
+    <script src="{% static 'vendors/js/core/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/core/popper.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/perfect-scrollbar.jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/prism.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/jquery.matchHeight-min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/screenfull.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'vendors/js/pace/pace.min.js' %}" type="text/javascript"></script>
+
+
+    <script src="{% static 'js/app-sidebar.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/notification-sidebar.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/customizer.js' %}" type="text/javascript"></script>
 
     {% block extra_js%}
-   
     {% endblock%}
 
     {% block js%}

@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^logout/',logout, name='logout'),
     url(r'^check_login/', check_login, name='check_login'),
 
-    # url(r'^home/', home, name='home'),
+    url(r'^persondata/', persondata, name='persondata'),
     url(r'^simple_upload/', simple_upload, name='simple_upload'),
     url(r'^model_form_upload/', model_form_upload, name='model_form_upload'),
     url(r'^blog/(?P<pk>\d+)$', blog_detail, name='blog'),
@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework')),
     url(r'^apitest', apitest, name='apitest'),
     
+    url(r'^person_api', person_api, name='person_api'),
 ]
 
 if settings.DEBUG:
